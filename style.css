@@ -1,0 +1,241 @@
+.mixed-1 {
+    padding-bottom: 8px;
+    background:
+      linear-gradient(#ff0000 0 0) 0    100%,
+      linear-gradient(#0000ff 0 0) 100% 100%;
+    background-size: 0% 4px;
+    background-repeat: no-repeat;
+    background-blend-mode: difference;
+    transition: .5s,background-position 0s .5s;
+  }
+  .mixed-1:hover {
+    background-size: 100% 4px;
+    background-position: 100% 100%,0 100%;
+  }
+  
+  .mixed-2 {
+    padding-bottom: 8px;
+    background:
+      linear-gradient(#ff00ff 0 0) 0    100%,
+      linear-gradient(#00ff00 0 0) 100% 100%;
+    background-size: 0% 4px;
+    background-repeat: no-repeat;
+    background-blend-mode: darken;
+    transition: .5s,background-position 0s .5s;
+  }
+  .mixed-2:hover {
+    background-size: 100% 4px;
+    background-position: 100% 100%,0 100%;
+  }
+  
+  .mixed-3 {
+    padding: 8px;
+    background:
+      linear-gradient(#ff0000 0 0) top left,
+      linear-gradient(#00ffff 0 0) bottom right;
+    background-size: 0% 0%;
+    background-repeat: no-repeat;
+    background-blend-mode: lighten;
+    transition: .5s;
+  }
+  .mixed-3:hover {
+    background-size: calc(100% - 6px) calc(100% - 6px);
+  }
+  
+  .mixed-4 {
+    padding: 8px;
+    background:
+      linear-gradient(#ffff00 0 0) top left,
+      linear-gradient(#0000ff 0 0) bottom right;
+    background-size: 0% 0%;
+    background-repeat: no-repeat;
+    background-blend-mode: darken;
+    transition: .5s;
+  }
+  .mixed-4:hover {
+    color:#fff;
+    background-size: calc(100% - 6px) calc(100% - 6px);
+  }
+  
+  .mixed-5 {
+    padding: 8px;
+    background:
+      radial-gradient(farthest-side at top,#00ff00 97%, #0000 ) top,
+      radial-gradient(farthest-side at bottom left ,#ff0000 97%, #0000 ) bottom left,
+      radial-gradient(farthest-side at bottom right,#0000ff 97%, #0000 ) bottom right;
+    background-size: 0% 0%;
+    background-repeat: no-repeat;
+    background-blend-mode: lighten;
+  }
+  .mixed-5:hover {
+    background-size: 280px 140px,280px 280px;
+    transition: .5s;
+  }
+   @property --p{
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 0%;
+  }
+  .mixed-6 {
+    padding: 8px;
+    background:
+      conic-gradient(#00ffff var(--p),#0000 0) ,
+      conic-gradient(#0000 calc(100% - var(--p)),#ff0000 0);
+    background-blend-mode: darken;
+    transition:--p .5s,color .5s;
+  }
+  .mixed-6:hover {
+    color:#fff;
+    --p:100%;
+  }
+  
+  .mixed-7 {
+    padding: 8px;
+    background:
+      conic-gradient(from  0deg, #00f0f0 0 90deg, #0000 0) 0 0,
+      conic-gradient(from  90deg,#f00f00 0 90deg, #0000 0) 0 15px,
+      conic-gradient(from -90deg,#0ff000 0 90deg, #0000 0) 15px 0,
+      conic-gradient(from 180deg,#0000ff 0 90deg, #0000 0) 15px 15px;
+    background-size: 30px 30px;
+    background-blend-mode: screen;
+  }
+  .mixed-7:hover {
+    transition: .5s;
+    background-position: 0 0,0 45px,45px 0,45px 45px;
+  } 
+  /**/
+  [class] {
+    display:inline-block;
+    font-size:40px;
+    font-family:sans-serif;
+    margin:25px;
+    cursor:pointer;
+  }
+  
+  body {
+    text-align:center;
+  }
+
+
+
+
+:root {
+	--white: whitesmoke;
+	--black: darkslategrey;
+	--red: crimson;
+	--green: seagreen;
+}
+
+.dartboard {
+	--bullseye-radius: 6.35;
+	--bull-radius: 15.9;
+	--triple-outer-radius: 107;
+	--triple-width: 8;
+	--double-outer-radius: 170;
+	--double-width: 8;
+	--wire-width: 1.4;
+	
+	--wire-color: var(--silver, silver);
+	--bullseye-color: var(--red, red);
+	--bull-color: var(--green, green);
+	
+	> li {
+		&:nth-child(odd) {
+			--single-color: var(--black, black);
+			--triple-color: var(--red, red);
+		}
+		&:nth-child(even) {
+			--single-color: var(--white, white);
+			--triple-color: var(--green, green);
+		}
+		--double-color: var(--triple-color);
+	}
+	
+	--scale: calc(85% / var(--double-outer-radius));
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	width: calc(100vmin - 20px);
+	height: calc(100vmin - 20px);
+	display: grid;
+	grid-template-areas: "dartboard";
+	overflow: hidden;
+	background: var(--black, black);
+	color: var(--white, white);
+	clip-path: circle();
+	text-align: center;
+	font: 4vmin/2 Futura, sans-serif;
+	
+	&::after
+	{
+		content: '';
+		grid-area: dartboard;		
+		background: radial-gradient(
+			closest-side,
+			var(--bullseye-color) 0 calc(
+				var(--bullseye-radius) * var(--scale)
+			),
+			var(--wire-color) 0 calc(
+				(var(--bullseye-radius) + var(--wire-width)) * var(--scale)
+			),
+			var(--bull-color) 0 calc(
+				var(--bull-radius) * var(--scale)
+			),
+			var(--wire-color) 0 calc(
+				(var(--bull-radius) + var(--wire-width)) * var(--scale)
+			),
+			transparent 0
+		);
+		z-index: 0;
+	}
+
+	> li
+	{
+		grid-area: dartboard;
+		background: radial-gradient(
+			closest-side,
+			var(--single-color) 0 calc(
+				(var(--triple-outer-radius) - var(--triple-width) - 2 * var(--wire-width)) * var(--scale)
+			),
+			var(--wire-color) 0 calc(
+				(var(--triple-outer-radius) - var(--triple-width) - var(--wire-width)) * var(--scale)
+			),
+			var(--triple-color) 0 calc(
+				(var(--triple-outer-radius) - var(--wire-width)) * var(--scale)
+			),
+			var(--wire-color) 0 calc(
+				var(--triple-outer-radius) * var(--scale)
+			),
+			var(--single-color) 0 calc(
+				(var(--double-outer-radius) - var(--double-width) - 2 * var(--wire-width)) * var(--scale)
+			),
+			var(--wire-color) 0 calc(
+				(var(--double-outer-radius) - var(--double-width) - var(--wire-width)) * var(--scale)
+			),
+			var(--double-color) 0 calc(
+				(var(--double-outer-radius) - var(--wire-width)) * var(--scale)
+			),
+			var(--wire-color) 0 calc(
+				var(--double-outer-radius) * var(--scale)
+			),
+			transparent 0
+		);
+		
+		--tan9deg: 0.158384440324536;
+		clip-path: polygon(
+			calc(50% * (1 - var(--tan9deg))) 0,
+			calc(50% * (1 + var(--tan9deg))) 0,
+			50% 50%
+		);
+
+		@for $index from 2 through 20
+		{
+			&:nth-of-type(#{$index})
+			{
+				transform: rotate(calc(#{$index - 1}/20 * 1turn));
+			}
+		}
+	}
+}
+
+*, ::before, ::after {box-sizing: border-box}
